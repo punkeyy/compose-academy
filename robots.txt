@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://punkeyy.github.io/compose-academy/sitemap.xml
