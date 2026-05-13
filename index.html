@@ -3,644 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compose Academy</title>
+    <title>COMPOSE ACADEMY</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            yellow: '#F37321', // 요청하신 오렌지 색상
+                            black: '#111111',
+                            gray: '#F8F9FA',
+                            darkGray: '#222222'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Bebas+Neue&display=swap');
-
-        :root {
-            --bg-color: #F2E8D5;
-            --text-color: #1a1a1a;
-            --point-color: #E88D67;
-            --border-color: #000000;
-            --form-accent: #E88D67;
-            --submit-btn: #438579;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            cursor: default;
-        }
-
-        /* Opening Animation Overlay */
-        #opening-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--point-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        #opening-text {
-            line-height: 0.8; 
-        }
-
-        .char-open {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 10vw;
-            color: white;
-            text-shadow: 5px 5px 0px var(--border-color);
-            display: inline-block;
-            transform: translateY(150%);
-        }
-
-        /* Navigation Style */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: var(--bg-color);
-            border-bottom: 3px solid var(--border-color);
-        }
-
-        .nav-logo {
-            font-family: 'Bebas Neue', cursive;
-            font-weight: 900;
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            cursor: pointer;
-            letter-spacing: 1px;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            user-select: none;
-        }
-
-        .nav-logo:hover {
-            transform: scale(1.05) rotate(-2deg);
-            color: var(--point-color);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: clamp(1rem, 3vw, 2rem);
-        }
-
-        .nav-links a {
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: var(--text-color);
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--point-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after { width: 100%; }
-
-        .apply-btn {
-            background: var(--point-color) !important;
-            color: white !important;
-            padding: 0.5rem 1.2rem;
-            border: 2px solid var(--border-color);
-            box-shadow: 4px 4px 0px var(--border-color);
-            transition: all 0.2s !important;
-        }
-
-        .apply-btn:hover {
-            transform: translate(-3px, -3px);
-            box-shadow: 7px 7px 0px var(--border-color);
-        }
-
-        /* Page Sections */
-        .page-section {
-            min-height: 100vh;
-            display: none;
-            padding: 140px 5% 100px 5%;
-            opacity: 0;
-            position: relative;
-        }
-
-        .page-section.active {
-            display: flex;
-            flex-direction: column;
-            opacity: 1;
-        }
-
-        /* Home Page Typography */
-        #home { justify-content: center; align-items: center; text-align: center; }
-        .hero-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; }
-        .hero-word { display: flex; gap: 0.2vw; }
-        .bouncing-char {
-            display: inline-block;
-            font-family: 'Bebas Neue', cursive;
-            font-size: clamp(4rem, 15vw, 16rem);
-            line-height: 0.85;
-            text-transform: uppercase;
-            -webkit-text-stroke: clamp(1px, 0.5vw, 3px) var(--border-color);
-            paint-order: stroke fill;
-        }
-        .word-1 .bouncing-char { color: var(--point-color); text-shadow: clamp(4px, 1vw, 10px) clamp(4px, 1vw, 10px) 0px var(--border-color); }
-        .word-2 .bouncing-char { color: var(--bg-color); }
+        body { font-family: 'Noto Sans KR', sans-serif; color: #111111; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
         
-        .sub-text {
-            max-width: 700px;
-            /* 폰트 크기 조정: 기존 clamp(1rem, 3vw, 1.5rem) -> clamp(0.95rem, 2.5vw, 1.25rem) */
-            font-size: clamp(0.95rem, 2.5vw, 1.25rem);
-            font-weight: 700;
-            border-top: 5px solid var(--point-color);
-            padding-top: 1.5rem;
-            margin-top: 2rem;
-            line-height: 1.6;
-        }
-
-        /* Form Styles */
-        .apply-card {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
-            color: #333;
-        }
-
-        .form-label span {
-            color: var(--point-color);
-            margin-left: 4px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1.2rem 1.5rem;
-            border: 2px solid var(--point-color);
-            border-radius: 20px;
-            font-size: 1.1rem;
-            outline: none;
-            transition: all 0.2s;
-            background-color: white;
-        }
-
-        .input-hint {
-            font-size: 0.9rem;
-            color: var(--point-color);
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-top: 2rem;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .custom-checkbox {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #438579;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.2s;
-        }
-
-        .checkbox-container input:checked + .custom-checkbox {
-            background-color: #438579;
-        }
-
-        .checkbox-container input:checked + .custom-checkbox::after {
-            content: '✓';
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .checkbox-text {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .submit-btn {
-            width: 100%;
-            margin-top: 3rem;
-            padding: 1.5rem;
-            background-color: var(--submit-btn);
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 700;
-            border-radius: 25px;
-            transition: all 0.3s;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .submit-btn.enabled {
-            opacity: 1;
-            pointer-events: auto;
-            cursor: pointer;
-        }
-
-        /* Stats Section Styling */
-        .stat-card {
-            background: white;
-            border: 4px solid var(--border-color);
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 6px 6px 0px var(--border-color);
-            transition: all 0.2s;
-        }
-        .stat-card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 10px 10px 0px var(--point-color);
-        }
-
-        /* Review Slider */
-        .review-slider-wrapper {
-            width: 100vw;
-            margin-left: -5vw;
-            overflow: hidden;
-            padding: 20px 0;
-        }
-
-        .review-track {
-            display: flex;
-            width: max-content;
-            animation: marquee 40s linear infinite;
-        }
-
-        .review-card {
-            width: 350px;
-            background: white;
-            border: 4px solid var(--border-color);
-            padding: 2rem;
-            margin-right: 2rem;
-            box-shadow: 8px 8px 0px var(--border-color);
-            flex-shrink: 0;
-        }
-
-        /* Bottom Bar */
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 50px;
-            background: var(--point-color);
-            border-top: 3px solid var(--border-color);
-            z-index: 90;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .scrolling-text {
-            white-space: nowrap;
-            font-weight: 900;
-            font-family: 'Bebas Neue', cursive;
-            font-size: 1.5rem;
-            animation: scroll 30s linear infinite;
-            color: white;
-        }
-
         @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            100% { transform: translateX(calc(-50% - 12px)); }
+        }
+        
+        .review-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+        
+        .review-track:hover {
+            animation-play-state: paused;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(17,17,17,0.85) 0%, rgba(34,34,34,0.9) 100%), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .custom-input {
+            background-color: #F8F9FA;
+            border: 1px solid #EDF2F7;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .custom-input:focus {
+            outline: none;
+            border-color: #F37321;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(243, 115, 33, 0.1);
         }
     </style>
 </head>
-<body>
+<body class="bg-white">
 
-    <div id="opening-overlay">
-        <div id="opening-text" class="flex flex-col items-center">
-            <div class="word-row" id="open-word1"></div>
-            <div class="word-row" id="open-word2"></div>
+    <header id="main-header" class="fixed w-full top-0 z-50 header-transition bg-transparent text-white border-b border-transparent">
+        <div class="container mx-auto px-4 lg:px-8 h-20 flex items-center justify-between">
+            <!-- 로고 이미지 사이즈 최적화: h-12(모바일), md:h-16(데스크톱) -->
+            <a href="#" class="flex items-center">
+                <img src="충장센터_로고.png" alt="COMPOSE ACADEMY" class="h-12 md:h-16 w-auto object-contain">
+            </a>
+            <nav class="hidden md:flex space-x-8 font-bold items-center">
+                <a href="#purpose" class="hover:text-brand-yellow transition-colors text-sm">Purpose</a>
+                <a href="#meaning" class="hover:text-brand-yellow transition-colors text-sm">Meaning</a>
+                <a href="#review" class="hover:text-brand-yellow transition-colors text-sm">Review</a>
+                <!-- 요청하신 둥근 오렌지색 버튼 -->
+                <a href="#apply" class="bg-brand-yellow text-white px-6 py-2.5 rounded-full hover:brightness-110 transition-all shadow-md text-sm">신청하기</a>
+            </nav>
+            <button class="md:hidden text-2xl" id="mobile-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </div>
+    </header>
 
-    <nav>
-        <div class="nav-logo" onclick="showPage('home')">COMPOSE ACADEMY</div>
-        <div class="nav-links">
-            <a href="#" onclick="showPage('about')">About</a>
-            <a href="#" onclick="showPage('meaning')">Meaning</a>
-            <a href="#" onclick="showPage('review')">Review</a>
-            <a href="#" onclick="showPage('apply')" class="apply-btn">신청하기</a>
-        </div>
-    </nav>
+    <section class="relative min-h-[110vh] flex items-center hero-bg text-white pt-32 pb-24">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h3 class="text-brand-yellow font-bold tracking-[0.3em] mb-4 text-sm md:text-base">COMPOSE YOUR FUTURE</h3>
+            <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight uppercase">
+                COMPOSE<br><span class="bg-gradient-to-r from-brand-yellow to-[#FFD95A] bg-clip-text text-transparent">ACADEMY</span>
+            </h1>
+            <p class="text-base md:text-lg font-bold mb-3">다양한 배움의 조각들이 모여 나만의 도전이 됩니다.</p>
+            <p class="text-sm md:text-base text-gray-300 mb-10 font-light">지식을 연결하고 성취를 설계하는 프리미엄 교육 공간, 컴포즈 아카데미.</p>
+            
+            <div class="mb-16">
+                <a href="#apply" class="inline-block bg-brand-yellow text-white px-10 py-4 rounded-full font-black text-lg hover:scale-105 transition-all shadow-xl">
+                    아카데미 신청하기
+                </a>
+            </div>
 
-    <!-- HOME -->
-    <section id="home" class="page-section active">
-        <div class="hero-container">
-            <div class="hero-word word-1" id="hero-word-1"></div>
-            <div class="hero-word word-2" id="hero-word-2"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/10 transform hover:scale-105 transition-transform">
+                    <div class="text-4xl font-black text-brand-yellow">200+</div>
+                    <div class="text-sm mt-2 text-gray-200 font-medium">청년 참여</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/10 transform hover:scale-105 transition-transform">
+                    <div class="text-4xl font-black text-brand-yellow">98%</div>
+                    <div class="text-sm mt-2 text-gray-200 font-medium">만족도</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/10 transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-black">무료 운영</div>
+                    <div class="text-sm mt-2 text-gray-200 font-medium">재능기부자들의 후원</div>
+                </div>
+            </div>
         </div>
-        <p class="sub-text">배움의 조각을 쌓아 나만의 경쟁력을 완성하세요.<br>컴포즈 아카데미는 당신의 잠재력을 실현합니다.</p>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="page-section">
-        <h2 class="text-6xl font-black mb-12 uppercase" style="font-family:'Bebas Neue'">About Us</h2>
-        <div class="grid md:grid-cols-2 gap-10 mb-16">
-            <div class="border-4 border-black p-8 bg-white shadow-[12px_12px_0px_#000]">
-                <p class="text-xl font-black italic mb-6 border-b-2 border-black pb-2 inline-block">"나를 컴포즈(COMPOSE) 하세요"</p>
-                <div class="text-2xl font-bold leading-tight mb-8">
-                    지식과 경험을 하나씩 쌓아,<br>
-                    나만의 경쟁력을 완성하는<br>
-                    자기계발 학원입니다.
-                </div>
-                <p class="text-lg leading-relaxed font-medium">
-                    단순히 배우는 것을 넘어,<br> 
-                    배운 것을 실제 역량으로<br> 
-                    만들어낼 수 있도록 돕습니다.<br><br>
-                    각자의 목표에 맞춘 체계적인 커리큘럼과<br>
-                    꾸준한 실천 중심의 학습을 통해,<br>
-                    성장의 과정을 직접 경험하게 합니다.
+    <section id="purpose" class="py-32 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center mb-20">
+                <h4 class="text-brand-yellow font-bold uppercase tracking-widest mb-6 text-sm">Purpose</h4>
+                <p class="text-2xl md:text-3xl font-bold mb-8 break-keep leading-tight">
+                    COMPOSE ACADEMY는<br>
+                    재능기부자들의 후원으로 세워진 비영리단체이자,<br>
+                    나만의 경쟁력을 완성하는 <span class="text-brand-yellow">자기계발</span> 학원입니다.<br>
+                    단순히 배우는 것을 넘어, 배운 것을 실제 역량으로<br>
+                    만들어낼 수 있도록 돕습니다.
+                </p>
+                <p class="text-lg text-gray-600 break-keep leading-relaxed">
+                    각자의 목표에 맞춘 체계적인 커리큘럼과 꾸준한 실천 중심의 학습을 통해, 성장의 과정을 직접 경험하게 합니다. Compose Academy에서 당신의 가능성을 조합하고, 더 큰 내일을 완성하세요.
                 </p>
             </div>
-            <div class="flex flex-col gap-6">
-                <div class="bg-[#E88D67] border-4 border-black p-8 text-white shadow-[8px_8px_0px_#000] rotate-1">
-                    <h4 class="font-black text-2xl mb-4 uppercase">Our Philosophy</h4>
-                    <p class="text-xl leading-snug">
-                        배움이라는 조각을<br> 
-                        어떻게 배치하고 연결하느냐가<br> 
-                        당신의 가치를 결정합니다.
-                    </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-gray-50 p-12 rounded-[3rem] transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-2xl group border border-transparent hover:border-gray-100">
+                    <div class="text-5xl text-orange-500 mb-8"><i class="fas fa-puzzle-piece"></i></div>
+                    <h3 class="text-2xl font-black mb-4">경험의 조합</h3>
+                    <p class="text-gray-500 text-lg">파편화된 지식들을 하나의 강력한 무기로 엮어내는 힘을 기릅니다.</p>
                 </div>
-                <div class="bg-white border-4 border-black p-8 shadow-[8px_8px_0px_#000] -rotate-1">
-                    <h4 class="font-black text-2xl mb-4 uppercase text-orange-600" style="font-family:'Bebas Neue'">Our Vision</h4>
-                    <p class="text-base md:text-lg leading-relaxed font-bold">
-                        흩어진 조각들을 모아,<br>
-                        가장 <span class="text-orange-600 font-black">'나'</span>다운 내일을 설계합니다.<br><br>
-                        <span class="whitespace-nowrap">무의미한 배움이 아닌 선명한 가치가 되는 곳</span><br><br>
-                        당신의 가능성을<br>
-                        독보적인 커리어로 조립해서<br>
-                        나의 가치를 실현시켜보세요.
-                    </p>
+                <div class="bg-gray-50 p-12 rounded-[3rem] transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-2xl group border border-transparent hover:border-gray-100">
+                    <div class="text-5xl text-blue-400 mb-8"><i class="fas fa-vial"></i></div>
+                    <h3 class="text-2xl font-black mb-4">실천 중심</h3>
+                    <p class="text-gray-500 text-lg">이론에 그치지 않고 실제 결과물을 만들어내는 프로세스를 반복합니다.</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="stat-card">
-                <div class="text-4xl font-black text-orange-600 mb-2" style="font-family:'Bebas Neue'">200 +</div>
-                <div class="text-lg font-bold">청년 참여</div>
-            </div>
-            <div class="stat-card">
-                <div class="text-4xl font-black text-orange-600 mb-2" style="font-family:'Bebas Neue'">98 %</div>
-                <div class="text-lg font-bold">만족도</div>
-            </div>
-            <div class="stat-card bg-[#438579] !text-white">
-                <div class="text-3xl font-black mb-2" style="font-family:'Bebas Neue'">FREE</div>
-                <div class="text-lg font-bold">재능기부운영 무료</div>
+                <div class="bg-gray-50 p-12 rounded-[3rem] transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-2xl group border border-transparent hover:border-gray-100">
+                    <div class="text-5xl text-gray-400 mb-8"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-2xl font-black mb-4">지속적 성장</h3>
+                    <p class="text-gray-500 text-lg">학습이 끝난 후에도 스스로 성장할 수 있는 동력을 제공합니다.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- MEANING -->
-    <section id="meaning" class="page-section">
-        <h2 class="text-6xl font-black mb-12 uppercase" style="font-family:'Bebas Neue'">Meaning</h2>
-        <div class="max-w-4xl border-4 border-black p-10 bg-white shadow-[12px_12px_0px_#000]">
-            <p class="text-2xl md:text-3xl font-bold leading-tight md:leading-snug mb-10">
-                Compose Academy는 배움의 조각들을 하나씩 쌓아,<br class="hidden md:block">
-                나만의 경쟁력을 완성하는 <span class="text-orange-600">자기계발 공간</span>입니다.<br><br>
-                잘 쌓인 조각들이 모여 결국 <span class="border-b-4 border-orange-400">'나'라는 사람의 가치</span>를<br class="hidden md:block">
+    <section id="meaning" class="py-32 bg-brand-gray">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h4 class="text-brand-yellow font-bold uppercase tracking-widest mb-4">Meaning</h4>
+            <p class="text-2xl md:text-3xl font-bold max-w-4xl mx-auto break-keep mb-20 leading-snug">
+                Compose Academy는<br>
+                배움의 조각들을 하나씩 쌓아,<br>
+                나만의 경쟁력을 완성하는 자기계발 공간입니다.<br>
+                잘 쌓인 조각들이 모여 결국 <span class="italic">'나'라는 사람의 가치</span>를<br>
                 더 크게 만드는 과정을 완성합니다.
             </p>
-            <div class="flex flex-wrap gap-4 mt-8 pt-8 border-t-2 border-black border-dashed">
-                <div class="px-6 py-2 bg-white border-2 border-black font-black shadow-[4px_4px_0px_#000]">#배움의 조각</div>
-                <div class="px-6 py-2 bg-white border-2 border-black font-black shadow-[4px_4px_0px_#000]">#경쟁력 완성</div>
-                <div class="px-6 py-2 bg-white border-2 border-black font-black shadow-[4px_4px_0px_#000]">#가치 증명</div>
-                <div class="px-6 py-2 bg-white border-2 border-black font-black shadow-[4px_4px_0px_#000]">#자기계발</div>
-                <div class="px-6 py-2 bg-white border-2 border-black font-black shadow-[4px_4px_0px_#000]">#나만의 커리어</div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto text-left">
+                <!-- Connect Card -->
+                <div class="bg-white p-12 rounded-[3rem] shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl group border border-gray-100 flex flex-col items-center text-center">
+                    <div class="w-24 h-24 bg-orange-50 rounded-full flex items-center justify-center text-4xl text-brand-yellow mb-8 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-6">Connect</h3>
+                    <p class="text-gray-600 leading-relaxed break-keep text-lg">
+                        경험이 풍부한 멘토와 열정적인 청년들을 연결하여, 교과서 밖의 살아있는 지식과 인사이트를 나눕니다.
+                    </p>
+                </div>
+                <!-- Grow Card -->
+                <div class="bg-white p-12 rounded-[3rem] shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl group border border-gray-100 flex flex-col items-center text-center">
+                    <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center text-4xl text-brand-black mb-8 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-6">Grow</h3>
+                    <p class="text-gray-600 leading-relaxed break-keep text-lg">
+                        체계적인 커리큘럼과 실무 프로젝트를 통해 개인의 역량을<br>
+                        한 단계 높이고 스스로 자립할 수 있는 힘을 기릅니다.
+                    </p>
+                </div>
+                <!-- Share Card -->
+                <div class="bg-white p-12 rounded-[3rem] shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl group border border-gray-100 flex flex-col items-center text-center">
+                    <div class="w-24 h-24 bg-orange-50 rounded-full flex items-center justify-center text-4xl text-brand-yellow mb-8 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-6">Share</h3>
+                    <p class="text-gray-600 leading-relaxed break-keep text-lg">
+                        우리가 받은 배움을 다시 사회에 환원하며, 선한 영향력이 순환하는 교육 생태계를 만들어 갑니다.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- REVIEW -->
-    <section id="review" class="page-section">
-        <h2 class="text-6xl font-black mb-8 uppercase" style="font-family:'Bebas Neue'">Review</h2>
-        <div class="review-slider-wrapper">
-            <div class="review-track" id="review-track"></div>
+    <section id="review" class="py-32 bg-brand-black text-white overflow-hidden">
+        <div class="text-center mb-20">
+            <h4 class="text-brand-yellow font-bold uppercase tracking-widest mb-4">Review</h4>
+            <h2 class="text-4xl md:text-6xl font-black">수강생들의 이야기</h2>
+        </div>
+        
+        <div class="review-track px-4" id="review-container">
+            <!-- Review cards will be injected by JS -->
         </div>
     </section>
 
-    <!-- APPLY -->
-    <section id="apply" class="page-section">
-        <h2 class="text-6xl font-black mb-12 uppercase" style="font-family:'Bebas Neue'">Apply</h2>
-        <div class="apply-card">
-            <form id="applyForm">
-                <div class="mb-8">
-                    <label class="form-label">이름 <span>*</span></label>
-                    <input type="text" id="nameInput" class="form-input validate-input" placeholder="홍길동" required>
-                    <p class="input-hint" id="hint-nameInput">이름을 입력해 주세요.</p>
+    <section id="apply" class="py-32 bg-brand-yellow">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row rounded-[2.5rem] overflow-hidden shadow-2xl">
+                <!-- Left Side (Info) -->
+                <div class="md:w-5/12 bg-brand-black p-12 md:p-16 text-white flex flex-col justify-center">
+                    <h2 class="text-5xl font-black mb-8">신청하기</h2>
+                    <p class="text-lg text-gray-400 mb-12 break-keep">
+                        컴포즈 아카데미 수강생 모집이 진행 중입니다.
+                    </p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-4">
+                            <span class="text-brand-yellow text-xl"><i class="fas fa-calendar-alt"></i></span>
+                            <span class="font-bold">모집 마감: ~ 2026. 05. 24</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <span class="text-brand-yellow text-xl"><i class="fas fa-check-circle"></i></span>
+                            <span class="font-bold">아카데미 개강일: 2026. 05. 27</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <span class="text-brand-yellow text-xl"><i class="fas fa-won-sign"></i></span>
+                            <span class="font-bold">수강 비용: 전액 무료(재능기부자들의 후원)</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div>
-                        <label class="form-label">연락처 <span>*</span></label>
-                        <input type="tel" id="phoneInput" class="form-input validate-input" placeholder="010-0000-0000" required>
-                        <p class="input-hint" id="hint-phoneInput">연락처를 입력해 주세요.</p>
-                    </div>
-                    <div>
-                        <label class="form-label">생년월일 <span>*</span></label>
-                        <input type="date" id="birthInput" class="form-input validate-input" required>
-                        <p class="input-hint" id="hint-birthInput">생년월일을 선택해 주세요.</p>
-                    </div>
+                
+                <!-- Right Side (Form) -->
+                <div class="md:w-7/12 bg-white p-12 md:p-16">
+                    <form id="applyForm" class="space-y-8" onsubmit="handleApply(event)">
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700">이름</label>
+                            <input type="text" required class="custom-input" placeholder="홍길동">
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700">연락처</label>
+                                <input type="tel" required class="custom-input" placeholder="010-0000-0000">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700">생년월일</label>
+                                <input type="date" required class="custom-input">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700">이메일</label>
+                            <input type="email" required class="custom-input" placeholder="compose@academy.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700">지원 동기</label>
+                            <select required class="custom-input appearance-none">
+                                <option value="">지원 동기를 선택해주세요</option>
+                                <option value="도전">새로운 분야에 대한 도전</option>
+                                <option value="추천">지인 추천</option>
+                                <option value="역량강화">실무 역량 강화</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-brand-black text-white font-black py-5 rounded-2xl text-xl hover:bg-gray-800 transition-all duration-300 mt-4">
+                            지원서 제출하기
+                        </button>
+                    </form>
                 </div>
-                <div class="mb-8">
-                    <label class="form-label">이메일 <span>*</span></label>
-                    <input type="email" id="emailInput" class="form-input validate-input" placeholder="example@email.com" required>
-                    <p class="input-hint" id="hint-emailInput">올바른 이메일을 입력해 주세요.</p>
-                </div>
-                <label class="checkbox-container">
-                    <input type="checkbox" id="privacyConsent" class="hidden validate-input" required>
-                    <div class="custom-checkbox"></div>
-                    <span class="checkbox-text">
-                        개인정보 수집 및 이용에 동의합니다. 수집된 정보는 프로그램 안내 및 연락 목적으로만 사용되며, 목적 달성 후 즉시 파기됩니다.
-                    </span>
-                </label>
-                <button type="button" id="submitBtn" class="submit-btn" onclick="submitApplication()">신청하기</button>
-            </form>
+            </div>
         </div>
     </section>
 
-    <div class="bottom-bar">
-        <div class="scrolling-text">
-            COMPOSE ACADEMY • BUILD YOUR PIECE • GROW YOUR VALUE • BE UNIQUE • COMPOSE ACADEMY • BUILD YOUR PIECE • GROW YOUR VALUE • 
+    <footer class="bg-white border-t border-gray-100 py-16">
+        <div class="container mx-auto px-4 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center">
+                <!-- 푸터 로고 사이즈 최적화: h-10 -->
+                <img src="충장센터_로고.png" alt="COMPOSE ACADEMY" class="h-10 w-auto object-contain">
+            </div>
+            <div class="text-base text-gray-500 text-center md:text-right">
+                <p>본 교육 프로그램은 재능기부자들의 후원으로 운영되는 비영리 프로젝트입니다.</p>
+                <p class="mt-2 font-medium">&copy; 2026 COMPOSE ACADEMY. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="successModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white rounded-[2rem] p-10 max-w-md w-full text-center shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center text-4xl text-brand-black mx-auto mb-6">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3 class="text-2xl font-black mb-4">신청해 주셔서 감사합니다!</h3>
+            <p class="text-gray-600 mb-8 leading-relaxed break-keep">
+                지원서가 안전하게 접수되었습니다.<br>당신의 소중한 새로운 도전을<br>컴포즈 아카데미가 진심으로 응원합니다.
+            </p>
+            <button onclick="closeModal()" class="w-full bg-brand-black text-brand-yellow font-bold py-4 rounded-xl hover:bg-gray-900 transition-colors">
+                확인
+            </button>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        const reviewData = [
-            { author: "김*연 님(20대)", title: "나만의 색깔을 찾았습니다", content: "막연했던 생각들이 구체적인 결과물로 변하는 과정이 놀라웠어요. 이제는 제 강점을 어떻게 보여줘야 할지 알 것 같아요." },
-            { author: "이*준 님(30대 초반)", title: "실천할 수 있는 힘을 얻었어요", content: "이론만 배우는 것이 아니라 직접 해보는 챌린지들이 큰 도움이 되었습니다. 매주 성장하는 제 모습이 보였거든요." },
-            { author: "박*현 님(20대)", title: "인생의 터닝포인트", content: "나만의 조각을 쌓는다는 개념이 제 커리어에 큰 영감을 주었습니다. 더 이상 막막하지 않아요." }
+        // Header scroll effect
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                header.classList.remove('bg-transparent', 'text-white', 'border-transparent');
+                header.classList.add('bg-white', 'text-brand-black', 'shadow-xl', 'border-gray-100');
+            } else {
+                header.classList.add('bg-transparent', 'text-white', 'border-transparent');
+                header.classList.remove('bg-white', 'text-brand-black', 'shadow-xl', 'border-gray-100');
+            }
+        });
+
+        // Reviews data
+        const reviews = [
+            { title: "머릿속 복잡한 실타래가 풀리는 기분", author: "김*연 (20대)", content: "이것저것 배운 건 많은데 정리가 안 돼서 늘 불안했거든요. 여기서 '나만의 조각'을 찾는 연습을 하면서 머릿속이 정말 맑아졌어요." },
+            { title: "그냥 학원 다니는 느낌이 아니에요", author: "이*준 (30대 초반)", content: "처음엔 커리큘럼이 좀 특이하다고 생각했는데, 듣다 보니 왜 '조합(Compose)'이 중요한지 알겠더라고요." },
+            { title: "디테일 한 끗 차이를 알게 됐어요", author: "박*현 (20대)", content: "독학할 때는 몰랐던 미세한 차이들을 짚어주시는 게 소름 돋았어요. 작은 조각 하나가 전체 퀄리티를 얼마나 바꾸는지 경험하고 나니까." },
+            { title: "자신감이라는 무기를 얻어갑니다", author: "정*우 (30대 초반)", content: "매주 하나씩 결과물을 완성해가는 과정이 저한테는 큰 치유였어요. '아, 나도 할 수 있구나'라는 확신을 얻었습니다." },
+            { title: "진짜 실무에서 고민하던 것들이 여기 다 있네요", author: "최*서 (30대 초반)", content: "이론만 가르치는 곳은 많지만, 여기처럼 '실제로 써먹는 감각'을 알려주는 곳은 드문 것 같아요." },
+            { title: "막막했던 내일이 조금 기대되기 시작했어요", author: "한*아 (20대)", content: "취준하면서 자존감이 많이 낮아진 상태였는데, 여기서 제 가능성을 발견했어요. 처음으로 내일이 기다려졌습니다." },
+            { title: "나만의 아카이브가 든든하게 생겼어요", author: "윤*훈 (30대 초반)", content: "수업 끝날 때마다 제 손에 남는 결과물들이 정말 만족스러워요. 이제는 저를 당당하게 보여줄 수 있게 됐습니다." },
+            { title: "좋은 에너지를 가진 동료들을 만난 곳", author: "강*린 (20대)", content: "혼자 끙깝 앓던 고민들을 같이 나누고 응원해주는 분위기가 너무 좋았어요. 지치지 않고 올 수 있었습니다." },
+            { title: "세련되게 성장하는 법을 배운 느낌", author: "송*민 (30대 초반)", content: "제가 가진 자원들을 어떻게 효율적이고 세련되게 배치해야 하는지, 그 감각적인 접근법을 배웠습니다." },
+            { title: "인생의 큰 전환점이 된 몇 달이었어요", author: "조*성 (20대)", content: "고민한 시간이 아까울 정도로 너무 좋았어요. 본질을 꿰뚫는 강의 덕분에 저만의 색깔을 찾았습니다." }
         ];
 
-        function initReviews() {
-            const track = document.getElementById('review-track');
-            const totalReviews = [...reviewData, ...reviewData, ...reviewData, ...reviewData];
-            totalReviews.forEach(rev => {
-                const card = document.createElement('div');
-                card.className = 'review-card';
-                card.innerHTML = `
-                    <div class="text-orange-600 font-bold mb-2">${rev.author}</div>
-                    <h3 class="text-xl font-black mb-4">"${rev.title}"</h3>
-                    <p class="text-gray-700 leading-relaxed">${rev.content}</p>
-                `;
-                track.appendChild(card);
-            });
-        }
-
-        function validateForm() {
-            const inputs = [
-                { id: 'nameInput', val: document.getElementById('nameInput').value.trim() },
-                { id: 'phoneInput', val: document.getElementById('phoneInput').value.trim() },
-                { id: 'birthInput', val: document.getElementById('birthInput').value },
-                { id: 'emailInput', val: document.getElementById('emailInput').value.trim() }
-            ];
-            const consent = document.getElementById('privacyConsent').checked;
-            const btn = document.getElementById('submitBtn');
-            let allFieldsFilled = true;
-
-            inputs.forEach(input => {
-                const hint = document.getElementById(`hint-${input.id}`);
-                if (input.val === '') {
-                    hint.style.display = 'block';
-                    allFieldsFilled = false;
-                } else {
-                    hint.style.display = 'none';
-                }
-            });
-
-            if (allFieldsFilled && consent) {
-                btn.classList.add('enabled');
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-                btn.style.cursor = 'pointer';
-            } else {
-                btn.classList.remove('enabled');
-                btn.style.opacity = '0.3';
-                btn.style.pointerEvents = 'none';
-            }
-        }
-
-        function initValidation() {
-            document.querySelectorAll('.validate-input').forEach(input => {
-                input.addEventListener('input', validateForm);
-                input.addEventListener('change', validateForm);
-            });
-            validateForm();
-        }
-
-        function submitApplication() {
-            const btn = document.getElementById('submitBtn');
-            if (btn.classList.contains('enabled')) {
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[3000] p-4';
-                modal.innerHTML = `
-                    <div class="bg-white p-10 rounded-[30px] border-4 border-black shadow-[12px_12px_0px_#000] text-center max-w-sm w-full">
-                        <h3 class="text-2xl font-black mb-4">신청 완료!</h3>
-                        <p class="mb-8 font-bold">배움의 조각을 맞추는 첫 걸음을 환영합니다.</p>
-                        <button onclick="this.closest('div').parentElement.remove()" class="bg-[#438579] text-white px-8 py-3 rounded-xl font-bold border-2 border-black">닫기</button>
+        function renderReviews() {
+            const track = document.getElementById('review-container');
+            const allReviews = [...reviews, ...reviews]; 
+            allReviews.forEach(r => {
+                const card = `
+                    <div class="bg-[#1a1a1a] p-10 rounded-[2rem] w-[400px] border border-zinc-800 shrink-0 hover:border-brand-yellow transition-colors duration-500">
+                        <div class="text-brand-yellow mb-6 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <h4 class="text-2xl font-bold mb-6 break-keep">"${r.title}"</h4>
+                        <p class="text-gray-400 text-lg mb-10 leading-relaxed h-28 overflow-hidden break-keep">${r.content}</p>
+                        <p class="text-lg font-bold text-white border-t border-zinc-800 pt-6 flex items-center gap-3">
+                            <span class="w-10 h-10 bg-brand-yellow rounded-full flex items-center justify-center text-brand-black text-sm">${r.author.charAt(0)}</span>
+                            ${r.author}
+                        </p>
                     </div>
                 `;
-                document.body.appendChild(modal);
-                document.getElementById('applyForm').reset();
-                validateForm();
-            }
-        }
-
-        const chars = [];
-        let bounceTime = 0;
-
-        function createHeroChars(containerId, text) {
-            const container = document.getElementById(containerId);
-            if(!container) return;
-            text.split('').forEach((char, i) => {
-                const span = document.createElement('span');
-                span.innerText = char;
-                span.className = 'bouncing-char';
-                container.appendChild(span);
-                chars.push({ el: span, phase: i * 0.4, amp: 25, speed: 0.12 });
+                track.innerHTML += card;
             });
         }
 
-        function animateHero() {
-            bounceTime += 0.5;
-            chars.forEach(c => {
-                const y = Math.abs(Math.sin(bounceTime * c.speed + c.phase)) * -c.amp;
-                gsap.set(c.el, { y: y });
-            });
-            requestAnimationFrame(animateHero);
+        // Handle Apply Form
+        function handleApply(e) {
+            e.preventDefault();
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.children[0].classList.remove('scale-95');
+                modal.children[0].classList.add('scale-100');
+            }, 10);
+            e.target.reset();
         }
 
-        function splitOpening(containerId, text) {
-            const container = document.getElementById(containerId);
-            text.split('').forEach(char => {
-                const span = document.createElement('span');
-                span.innerText = char === ' ' ? '\u00A0' : char;
-                span.className = 'char-open';
-                container.appendChild(span);
-            });
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.children[0].classList.remove('scale-100');
+            modal.children[0].classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
         }
 
-        function showPage(id) {
-            const active = document.querySelector('.page-section.active');
-            const target = document.getElementById(id);
-            if (active === target) return;
-            gsap.to(active, { opacity: 0, y: 20, duration: 0.3, onComplete: () => {
-                active.classList.remove('active');
-                active.style.display = 'none';
-                target.style.display = 'flex';
-                target.classList.add('active');
-                gsap.fromTo(target, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 });
-            }});
-            window.scrollTo(0, 0);
-        }
-
-        window.onload = () => {
-            splitOpening('open-word1', 'COMPOSE');
-            splitOpening('open-word2', 'ACADEMY');
-            createHeroChars('hero-word-1', 'COMPOSE');
-            createHeroChars('hero-word-2', 'ACADEMY');
-            initReviews();
-            initValidation();
-            animateHero();
-
-            gsap.timeline()
-                .to(".char-open", { y: 0, duration: 0.6, stagger: 0.05, ease: "back.out" })
-                .to("#opening-overlay", { yPercent: -100, duration: 0.8, ease: "power4.inOut", delay: 0.5 });
-        };
+        document.addEventListener('DOMContentLoaded', renderReviews);
     </script>
 </body>
 </html>
